@@ -1,0 +1,15 @@
+.chipArea {
+    position: absolute;
+    top: 130px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+}
+.chip {
+    margin: 8px;
+}
+.chip > span {
+    font-size: 12px;
+    font-weight: 500;
+}

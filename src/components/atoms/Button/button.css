@@ -1,0 +1,7 @@
+.filled {
+    background-color: #82786a !important;
+}
+.lined {
+    border: 1px solid grey !important;
+    color: #82786a !important;
+}
