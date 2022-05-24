@@ -1,22 +1,48 @@
 export enum RecipeActionTypes {
     FETCH_RECIPES = "FETCH_RECIPES",
     FETCH_RECIPES_SUCCESS = "FETCH_RECIPES_SUCCESS",
+    FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS",
     FETCH_RECIPES_ERROR = "FETCH_RECIPES_ERROR",
 }
-export interface RecipesState {
+export type RecipesState = {
     recipes: any[]
     loading: boolean
     error: null | string
 }
-
-interface FetchRecipesAction {
+export type RecipeState = {
+    recipe: IRecipe
+    loading: boolean
+    error: null | string
+}
+export interface IRecipe {
+    id: number
+    title: string
+    description: string
+    caloricity: number
+    thumbnail: number
+    images: string[]
+    cuisine: ICuisine
+    cookTime: number
+    difficulty: string
+    ingredients: string[]
+    instructions: []
+}
+type ICuisine = {
+    id: number
+    title: string
+}
+type FetchRecipesAction = {
     type: RecipeActionTypes.FETCH_RECIPES
 }
-interface FetchRecipesSuccessAction {
+type FetchRecipesSuccessAction = {
     type: RecipeActionTypes.FETCH_RECIPES_SUCCESS
     payload: any[]
 }
-interface FetchRecipesErrorAction {
+type FetchRecipeSuccessAction = {
+    type: RecipeActionTypes.FETCH_RECIPE_SUCCESS
+    payload: IRecipe
+}
+type FetchRecipesErrorAction = {
     type: RecipeActionTypes.FETCH_RECIPES_ERROR
     payload: string
 }
@@ -24,3 +50,4 @@ export type RecipesAction =
     | FetchRecipesAction
     | FetchRecipesSuccessAction
     | FetchRecipesErrorAction
+    | FetchRecipeSuccessAction

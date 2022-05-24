@@ -14,8 +14,13 @@ interface IRecipeCard {
     caloricity: number;
     cookTime: number;
     thumbnail: string;
-    cuisine: object;
+    cuisine: ICuisine;
 }
+type ICuisine = {
+    id: number;
+    country: string;
+};
+
 function convertTime(seconds: number) {
     const minutes = seconds / 60;
     const hours = minutes / 60;
