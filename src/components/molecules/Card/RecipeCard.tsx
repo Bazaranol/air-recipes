@@ -6,6 +6,8 @@ import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid/Grid";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { Link } from "react-router-dom";
+import { SCREENS } from "../../../routes/endpoints";
 import "./recipeCard.css";
 interface IRecipeCard {
     id: number;
@@ -37,7 +39,14 @@ export const RecipeCard: React.FC<IRecipeCard> = ({
     cuisine,
 }) => {
     return (
-        <Grid item xs={12} md={4}>
+        <Grid
+            item
+            xs={12}
+            md={4}
+            component={Link}
+            to={SCREENS.SCREEN_RECIPES + `${id}`}
+            sx={{ textDecoration: "none" }}
+        >
             <Card sx={{ maxWidth: 348, height: 384, marginBottom: 2 }}>
                 <CardActionArea>
                     <div className="headerCard">

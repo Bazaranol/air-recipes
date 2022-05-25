@@ -25,7 +25,7 @@ export interface IRecipe {
     cookTime: number
     difficulty: string
     ingredients: string[]
-    instructions: []
+    instructions: string[]
 }
 type ICuisine = {
     id: number

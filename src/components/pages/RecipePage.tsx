@@ -1,19 +1,22 @@
 import { CardMedia, Typography } from "@mui/material";
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useAction } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { CardContainer } from "../organisms/CardContainer/CardContainer";
 
-interface IRecipePage {
-    id: number;
-}
-export const RecipePage: React.FC<IRecipePage> = ({ id }) => {
+type recipeParams = {
+    id: string;
+};
+export const RecipePage: React.FC = () => {
+    const { id } = useParams<recipeParams>();
+    console.log(id);
     const { recipe, loading, error } = useTypedSelector(
         (state) => state.recipe
     );
     const { fetchRecipe } = useAction();
     useEffect(() => {
-        fetchRecipe(id);
+        fetchRecipe(parseInt(id!));
     }, []);
     if (loading) {
         return <h1>Загрузка...</h1>;
@@ -27,7 +30,7 @@ export const RecipePage: React.FC<IRecipePage> = ({ id }) => {
             <div className="recipe">
                 <div className="recipeDescription">
                     <Typography variant="h3" fontWeight={800}>
-                        {recipe.title}
+                        {recipe.title} {id}
                     </Typography>
                     <Typography variant="body1">
                         {recipe.description}

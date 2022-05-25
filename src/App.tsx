@@ -14,7 +14,7 @@ function App() {
                     <Route index element={<RecipesPage />} />
                     <Route
                         path={SCREENS.SCREEN_RECIPE}
-                        element={<RecipePage id={1} />}
+                        element={<RecipePage />}
                     />
                     <Route
                         path={SCREENS.SCREEN_UNKNOWN}
