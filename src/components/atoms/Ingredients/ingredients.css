@@ -1,0 +1,13 @@
+.ingredientsList li {
+    display: flex;
+    font-family: Roboto;
+    margin-bottom: 12px;
+    line-height: 24px;
+    font-weight: 400;
+}
+.ingredientsList li::before {
+    content: "•";
+    left: 0.8em;
+    font-size: 1.1em;
+    margin-right: 5px;
+}

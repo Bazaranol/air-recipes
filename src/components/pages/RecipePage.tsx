@@ -1,13 +1,17 @@
-import { CardMedia, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAction } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { CardContainer } from "../organisms/CardContainer/CardContainer";
+import { CookDescription } from "../atoms/CookDescription/CookDescription";
+import { Ingredients } from "../atoms/Ingredients/Ingredients";
+import { Instructions } from "../atoms/Instructions/Instructions";
+import { ImageSlider } from "../molecules/ImageBlock/ImageSlider";
 
 type recipeParams = {
     id: string;
 };
+
 export const RecipePage: React.FC = () => {
     const { id } = useParams<recipeParams>();
     console.log(id);
@@ -27,52 +31,67 @@ export const RecipePage: React.FC = () => {
     console.log(recipe);
     return (
         <>
-            <div className="recipe">
-                <div className="recipeDescription">
-                    <Typography variant="h3" fontWeight={800}>
-                        {recipe.title} {id}
-                    </Typography>
-                    <Typography variant="body1">
-                        {recipe.description}
-                    </Typography>
-                    <div className="recipeParams">
-                        <div className="difficulty">{recipe.difficulty}</div>
-                        <div className="cookTime">{recipe.cookTime}</div>
-                        <div className="caloricity">{recipe.caloricity}</div>
-                        <div className="Kitchen">{recipe.cuisine.title}</div>
-                    </div>
-                    <div className="recipeIngredients">
-                        <Typography variant="h5" fontWeight={800}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    mt: "60px",
+                }}
+            >
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        mr: "20px",
+                    }}
+                >
+                    <Box mb={2}>
+                        <Typography
+                            variant="h3"
+                            fontWeight={800}
+                            mb={2}
+                            fontSize="40px"
+                        >
+                            {recipe.title}
+                        </Typography>
+                        <Typography variant="body1">
+                            {recipe.description}
+                        </Typography>
+                    </Box>
+                    <Box
+                        mb={3}
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                        }}
+                    >
+                        <CookDescription
+                            difficulty={recipe.difficulty}
+                            cookTime={recipe.cookTime}
+                            caloricity={recipe.caloricity}
+                            cuisineTitle={recipe.cuisine.title}
+                        />
+                    </Box>
+                    <Box mb={3}>
+                        <Typography variant="h5" fontWeight={800} mb={2}>
                             Ingredients
                         </Typography>
-                        <ul>
-                            {recipe.ingredients.map((ingredient) => (
-                                <li key={id}>{ingredient}</li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="recipeInstructions">
-                        <Typography variant="h5" fontWeight={800}>
+                        <Box>
+                            <Ingredients ingredients={recipe.ingredients} />
+                        </Box>
+                    </Box>
+                    <Box mb={3}>
+                        <Typography variant="h5" fontWeight={800} mb={2}>
                             Instructions
                         </Typography>
-                        <ul>
-                            {recipe.instructions.map((instruction) => (
-                                <li key={id}>{instruction}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-                <div className="recipeImages">
-                    <CardMedia
-                        component="img"
-                        height="196"
-                        width="196  "
-                        image={recipe.images[0]}
-                        alt="image"
-                        className="cardMedia"
-                    ></CardMedia>
-                </div>
-            </div>
+                        <Box>
+                            <Instructions instructions={recipe.instructions} />
+                        </Box>
+                    </Box>
+                </Box>
+                <ImageSlider images={recipe.images} />
+            </Box>
         </>
     );
 };

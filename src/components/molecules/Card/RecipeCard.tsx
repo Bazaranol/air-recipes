@@ -9,6 +9,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { SCREENS } from "../../../routes/endpoints";
 import "./recipeCard.css";
+import { convertCookTime } from "../../../helpers/convertCookTime.";
 interface IRecipeCard {
     id: number;
     title: string;
@@ -20,15 +21,9 @@ interface IRecipeCard {
 }
 type ICuisine = {
     id: number;
-    country: string;
+    title: string;
 };
 
-function convertTime(seconds: number) {
-    const minutes = seconds / 60;
-    const hours = minutes / 60;
-    if (hours >= 1) return `${hours} hours`;
-    else return `${minutes} min`;
-}
 export const RecipeCard: React.FC<IRecipeCard> = ({
     id,
     title,
@@ -52,7 +47,7 @@ export const RecipeCard: React.FC<IRecipeCard> = ({
                     <div className="headerCard">
                         <div className="chipArea">
                             <Chip
-                                label={convertTime(cookTime)}
+                                label={convertCookTime(cookTime)}
                                 className="chip"
                                 sx={{ backgroundColor: "#fff" }}
                             />
@@ -62,7 +57,7 @@ export const RecipeCard: React.FC<IRecipeCard> = ({
                                 sx={{ backgroundColor: "#fff" }}
                             />
                             <Chip
-                                label={caloricity}
+                                label={cuisine.title}
                                 className="chip"
                                 sx={{ backgroundColor: "#fff" }}
                             />

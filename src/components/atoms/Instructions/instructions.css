@@ -1,0 +1,24 @@
+.instructionsList li {
+    list-style: none;
+    display: flex;
+    font-family: Roboto;
+    margin-bottom: 12px;
+    line-height: 24px;
+    font-weight: 400;
+}
+.instructionsList li > div {
+    display: inline-block;
+    border: 2px solid #ccc;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    margin-right: 8px;
+    font-size: 8px;
+    font-weight: 700;
+    font-family: Roboto;
+    padding: 5px;
+}

@@ -1,13 +1,30 @@
-import React, { useEffect } from "react";
+import { Box } from "@mui/system";
+import React, { useContext, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useAction } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { RecipeCard } from "../molecules/Card/RecipeCard";
 import { CardContainer } from "../organisms/CardContainer/CardContainer";
 
+import { SearchContext } from "../templates/Layout";
+
 export const RecipesPage: React.FC = () => {
     const { recipes, loading, error } = useTypedSelector(
         (state) => state.recipes
     );
+    const search = useContext(SearchContext);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const recipeQuery = searchParams.get("recipe") || "";
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        const query = form.search.value.toLowerCase();
+        setSearchParams({ recipe: query });
+    };
+    useEffect(() => {
+        const query = search?.toLowerCase();
+        setSearchParams({ recipe: query });
+    }, [search]);
     const { fetchRecipes } = useAction();
     useEffect(() => {
         fetchRecipes();
@@ -20,22 +37,32 @@ export const RecipesPage: React.FC = () => {
     }
     console.log(recipes);
     return (
-        <>
-            <h1>hi</h1>
+        <Box mt={"60px"}>
             <CardContainer>
-                {recipes.map((recipe) => (
-                    <RecipeCard
-                        key={recipe.id}
-                        id={recipe.id}
-                        title={recipe.title}
-                        description={recipe.description}
-                        caloricity={recipe.caloricity}
-                        cookTime={recipe.cookTime}
-                        thumbnail={recipe.thumbnail}
-                        cuisine={recipe.cuisine}
-                    ></RecipeCard>
-                ))}
+                {recipes
+                    .filter(
+                        (recipe) =>
+                            recipe.title.toLowerCase().includes(recipeQuery) ||
+                            recipe.description
+                                .toLowerCase()
+                                .includes(recipeQuery) ||
+                            recipe.cuisine.title
+                                .toLowerCase()
+                                .includes(recipeQuery)
+                    )
+                    .map((recipe) => (
+                        <RecipeCard
+                            key={recipe.id}
+                            id={recipe.id}
+                            title={recipe.title}
+                            description={recipe.description}
+                            caloricity={recipe.caloricity}
+                            cookTime={recipe.cookTime}
+                            thumbnail={recipe.thumbnail}
+                            cuisine={recipe.cuisine}
+                        ></RecipeCard>
+                    ))}
             </CardContainer>
-        </>
+        </Box>
     );
 };
