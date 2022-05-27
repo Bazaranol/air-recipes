@@ -1,0 +1,20 @@
+.slick-dots {
+    top: 375px;
+    display: flex !important;
+    flex-direction: row;
+    width: 100%;
+    padding: 0;
+    margin-left: 0;
+    list-style: none;
+    list-style-type: none;
+    text-align: center;
+}
+.slick-dots > li {
+    margin-right: 8px !important;
+    margin-left: 0px !important;
+    width: 58px !important;
+    height: 58px !important;
+}
+.slick-dots > .slick-active {
+    border: 2px solid #000;
+}
