@@ -15,12 +15,6 @@ export const RecipesPage: React.FC = () => {
     const search = useContext(SearchContext);
     const [searchParams, setSearchParams] = useSearchParams();
     const recipeQuery = searchParams.get("recipe") || "";
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const form = e.target as HTMLFormElement;
-        const query = form.search.value.toLowerCase();
-        setSearchParams({ recipe: query });
-    };
     useEffect(() => {
         const query = search?.toLowerCase();
         setSearchParams({ recipe: query });
@@ -35,9 +29,13 @@ export const RecipesPage: React.FC = () => {
     if (error) {
         return <h1>{error}</h1>;
     }
-    console.log(recipes);
     return (
-        <Box mt={"60px"}>
+        <Box
+            pt={"30px"}
+            mt={"30px"}
+            maxWidth={"1200px"}
+            sx={{ position: "absolute", background: "white" }}
+        >
             <CardContainer>
                 {recipes
                     .filter(

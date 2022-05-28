@@ -14,13 +14,12 @@ type recipeParams = {
 
 export const RecipePage: React.FC = () => {
     const { id } = useParams<recipeParams>();
-    console.log(id);
     const { recipe, loading, error } = useTypedSelector(
         (state) => state.recipe
     );
     const { fetchRecipe } = useAction();
     useEffect(() => {
-        fetchRecipe(parseInt(id!));
+        id && fetchRecipe(parseInt(id));
     }, []);
     if (loading) {
         return <h1>Загрузка...</h1>;
@@ -28,7 +27,6 @@ export const RecipePage: React.FC = () => {
     if (error) {
         return <h1>{error}</h1>;
     }
-    console.log(recipe);
     return (
         <>
             <Box
@@ -36,7 +34,10 @@ export const RecipePage: React.FC = () => {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    mt: "60px",
+                    pt: "60px",
+                    position: "absolute",
+                    background: "white",
+                    maxWidth: "1200px",
                 }}
             >
                 <Box
