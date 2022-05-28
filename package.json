@@ -38,7 +38,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "lint": "tsc --noEmit && eslint src/**/*.ts{,x}",
-        "lint:fix": "eslint --fix 'src/**/*.ts{,x}'",
+        "lint:fix": "eslint --fix src/**/*.ts{,x}",
         "format": "prettier --write src/**/*.ts{,x}"
     },
     "eslintConfig": {

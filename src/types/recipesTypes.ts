@@ -5,7 +5,7 @@ export enum RecipeActionTypes {
     FETCH_RECIPES_ERROR = "FETCH_RECIPES_ERROR",
 }
 export type RecipesState = {
-    recipes: any[]
+    recipes: IRecipe[]
     loading: boolean
     error: null | string
 }
@@ -19,7 +19,7 @@ export interface IRecipe {
     title: string
     description: string
     caloricity: number
-    thumbnail: number
+    thumbnail: string
     images: string[]
     cuisine: ICuisine
     cookTime: number
@@ -36,7 +36,7 @@ type FetchRecipesAction = {
 }
 type FetchRecipesSuccessAction = {
     type: RecipeActionTypes.FETCH_RECIPES_SUCCESS
-    payload: any[]
+    payload: IRecipe[]
 }
 type FetchRecipeSuccessAction = {
     type: RecipeActionTypes.FETCH_RECIPE_SUCCESS

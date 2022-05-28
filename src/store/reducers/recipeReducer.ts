@@ -9,7 +9,7 @@ const inititalState: RecipeState = {
         title: "",
         description: "",
         caloricity: 0,
-        thumbnail: 0,
+        thumbnail: "",
         images: [],
         cuisine: { id: 0, title: "" },
         cookTime: 0,
@@ -27,43 +27,11 @@ export const recipeReducer = (
 ): RecipeState => {
     switch (action.type) {
         case RecipeActionTypes.FETCH_RECIPES:
-            return {
-                loading: true,
-                error: null,
-                recipe: {
-                    id: 0,
-                    title: "",
-                    description: "",
-                    caloricity: 0,
-                    thumbnail: 0,
-                    images: [],
-                    cuisine: { id: 0, title: "" },
-                    cookTime: 0,
-                    difficulty: "",
-                    ingredients: [],
-                    instructions: [],
-                },
-            }
+            return inititalState
         case RecipeActionTypes.FETCH_RECIPE_SUCCESS:
             return { loading: false, error: null, recipe: action.payload }
         case RecipeActionTypes.FETCH_RECIPES_ERROR:
-            return {
-                loading: false,
-                error: action.payload,
-                recipe: {
-                    id: 0,
-                    title: "",
-                    description: "",
-                    caloricity: 0,
-                    thumbnail: 0,
-                    images: [],
-                    cuisine: { id: 0, title: "" },
-                    cookTime: 0,
-                    difficulty: "",
-                    ingredients: [],
-                    instructions: [],
-                },
-            }
+            return inititalState
         default:
             return state
     }

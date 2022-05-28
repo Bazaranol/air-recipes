@@ -19,6 +19,7 @@
     },
     "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
     "rules": {
+        "no-console": "error",
         "react/prop-types": "off",
         "quotes": ["error", "double", { "allowTemplateLiterals": true }]
     }
