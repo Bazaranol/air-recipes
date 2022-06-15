@@ -18,3 +18,32 @@
 .slick-dots > .slick-active {
     border: 2px solid #000;
 }
+.imgDot {
+    margin-top: 16px;
+    margin-right: 8px;
+    border: 2px solid #000;
+    width: 58px;
+    height: 58px;
+}
+.mainImg {
+    width: 532px;
+    height: 355px;
+}
+@media screen and (max-width: 1000px) {
+    .mainImg {
+        width: 420px;
+        height: 280px;
+    }
+}
+@media screen and (max-width: 850px) {
+    .mainImg {
+        width: 300px;
+        height: 220px;
+    }
+}
+@media screen and (max-width: 850px) {
+    .mainImg {
+        width: 270px;
+        height: 200px;
+    }
+}

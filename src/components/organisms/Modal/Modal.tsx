@@ -5,11 +5,20 @@ import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
-import React from "react";
+import React, { useRef, useState } from "react";
+import { useAppDispatch } from "../../../hooks/useAppDispatch";
+import {
+    calories,
+    caribbean,
+    chinese,
+    french,
+    greek,
+    indian,
+} from "../../../store/reducers/filterSlice";
 import { FilledButton, LinedButton } from "../../atoms/Button/Button";
 import { FilterCheckBox } from "../../atoms/CheckBox/FilterCheckBox";
 import "./modal.css";
-const titles = ["Carribean", "Greek", "French", "Indian", "Chinese"];
+const titles = ["Caribbean", "Greek", "French", "Indian", "Chinese"];
 const PrettoSlider = styled(Slider)({
     color: "#82786A",
     height: 2,
@@ -50,12 +59,36 @@ interface IModal {
     handleClose: React.MouseEventHandler<HTMLButtonElement>;
     open: boolean;
 }
+const initialState = {
+    bool: true,
+    num: [100, 1200],
+};
 
 export const ModalFilter: React.FC<IModal> = ({ handleClose, open }) => {
-    const [value, setValue] = React.useState<number[]>([100, 1200]);
+    const [toggle, setToggle] = useState(false);
 
+    const handleClear = () => {
+        dispatch(caribbean(initialState.bool));
+        dispatch(greek(initialState.bool));
+        dispatch(french(initialState.bool));
+        dispatch(indian(initialState.bool));
+        dispatch(chinese(initialState.bool));
+        dispatch(calories(initialState.num));
+        clear();
+    };
+    const clear = () => {
+        setToggle(true);
+        setValue(initialState.num);
+    };
+    const handleToggle = (bool: boolean) => {
+        setToggle(bool);
+    };
+    const checkRef = useRef();
+    const dispatch = useAppDispatch();
+    const [value, setValue] = React.useState<number[]>([100, 1200]);
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
+        dispatch(calories(value));
     };
     return (
         <Modal
@@ -98,9 +131,15 @@ export const ModalFilter: React.FC<IModal> = ({ handleClose, open }) => {
                             &#10006;
                         </Typography>
                     </Box>
-                    <Box mb={2}>
+                    <Box mb={2} ref={checkRef}>
                         {titles.map((title, index) => (
-                            <FilterCheckBox key={index} title={title} />
+                            <FilterCheckBox
+                                key={index}
+                                title={title}
+                                index={index}
+                                toggle={toggle}
+                                toggleBack={() => handleToggle(toggle)}
+                            />
                         ))}
                     </Box>
 
@@ -125,8 +164,11 @@ export const ModalFilter: React.FC<IModal> = ({ handleClose, open }) => {
                             justifyContent: "space-between",
                         }}
                     >
-                        <LinedButton text="Clear" />
-                        <FilledButton text="Show Recipes" />
+                        <LinedButton text="Clear" onClick={handleClear} />
+                        <FilledButton
+                            text="Show Recipes"
+                            onClick={handleClose}
+                        />
                     </Box>
                 </Box>
             </Fade>

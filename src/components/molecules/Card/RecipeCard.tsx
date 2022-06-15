@@ -36,13 +36,23 @@ export const RecipeCard: React.FC<IRecipeCard> = ({
     return (
         <Grid
             item
-            xs={12}
+            xs={4}
+            sm={4}
             md={4}
+            lg={3}
             component={Link}
             to={SCREENS.SCREEN_RECIPES + `${id}`}
             sx={{ textDecoration: "none" }}
         >
-            <Card sx={{ maxWidth: 348, height: 384, marginBottom: 2 }}>
+            <Card
+                className="card"
+                sx={{
+                    maxWidth: 348,
+                    height: 384,
+                    xs: { marginLeft: 2 },
+                    marginBottom: 2,
+                }}
+            >
                 <CardActionArea>
                     <div className="headerCard">
                         <div className="chipArea">

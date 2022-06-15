@@ -2,6 +2,7 @@
     "name": "recipes-react",
     "version": "0.1.0",
     "private": true,
+    "homepage": "https://bazaranol.github.io/air-recipes/",
     "dependencies": {
         "@emotion/react": "^11.9.0",
         "@emotion/styled": "^11.8.1",
@@ -10,6 +11,7 @@
         "@mdi/react": "^1.6.0",
         "@mui/icons-material": "^5.8.0",
         "@mui/material": "^5.8.0",
+        "@reduxjs/toolkit": "^1.8.2",
         "@testing-library/jest-dom": "^5.14.1",
         "@testing-library/react": "^13.0.0",
         "@testing-library/user-event": "^13.2.1",
@@ -39,7 +41,9 @@
         "eject": "react-scripts eject",
         "lint": "tsc --noEmit && eslint src/**/*.ts{,x}",
         "lint:fix": "eslint --fix src/**/*.ts{,x}",
-        "format": "prettier --write src/**/*.ts{,x}"
+        "format": "prettier --write src/**/*.ts{,x}",
+        "predeploy": "yarn run build",
+        "deploy": "gh-pages -d build"
     },
     "eslintConfig": {
         "extends": [
@@ -71,6 +75,7 @@
         "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-react": "^7.30.0",
+        "gh-pages": "^4.0.0",
         "prettier": "^2.6.2"
     }
 }

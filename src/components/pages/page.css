@@ -1,0 +1,53 @@
+.recipe {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 60px;
+    margin-top: 20px;
+    position: absolute;
+    background: white;
+    max-width: 1200px;
+}
+@media screen and (max-width: 1200px) {
+    .recipe {
+        max-width: 1100px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .recipe {
+        width: 900px;
+        flex-direction: column;
+    }
+    .recipeTitle {
+        font-size: 32px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .recipe {
+        max-width: 700px;
+        flex-direction: column;
+    }
+    .recipeTitle {
+        font-size: 24px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .recipe {
+        max-width: 570px;
+    }
+    .recipeTitle {
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 550px) {
+    .recipe {
+        max-width: 500px;
+        padding: 10px;
+    }
+    .cookDesc {
+        flex-direction: column !important;
+    }
+    .cookDesc:nth-child(n) {
+        margin-bottom: 10px;
+    }
+}

@@ -1,17 +1,24 @@
 import { Box } from "@mui/system";
 import React, { useContext, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useAction } from "../../hooks/useActions";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { fetchRecipes } from "../../store/action-creators/recipes";
 import { RecipeCard } from "../molecules/Card/RecipeCard";
 import { CardContainer } from "../organisms/CardContainer/CardContainer";
 
 import { SearchContext } from "../templates/Layout";
 
 export const RecipesPage: React.FC = () => {
+    const dispatch = useAppDispatch();
     const { recipes, loading, error } = useTypedSelector(
-        (state) => state.recipes
+        (state) => state.recipesReducer
     );
+    const { calories, caribbean, greek, indian, french, chinese } =
+        useTypedSelector((state) => state.filterReducer);
+    useEffect(() => {
+        dispatch(fetchRecipes());
+    }, []);
     const search = useContext(SearchContext);
     const [searchParams, setSearchParams] = useSearchParams();
     const recipeQuery = searchParams.get("recipe") || "";
@@ -19,10 +26,6 @@ export const RecipesPage: React.FC = () => {
         const query = search?.toLowerCase();
         setSearchParams({ recipe: query });
     }, [search]);
-    const { fetchRecipes } = useAction();
-    useEffect(() => {
-        fetchRecipes();
-    }, []);
     if (loading) {
         return <h1>Загрузка...</h1>;
     }
@@ -40,13 +43,30 @@ export const RecipesPage: React.FC = () => {
                 {recipes
                     .filter(
                         (recipe) =>
-                            recipe.title.toLowerCase().includes(recipeQuery) ||
-                            recipe.description
-                                .toLowerCase()
-                                .includes(recipeQuery) ||
-                            recipe.cuisine.title
-                                .toLowerCase()
-                                .includes(recipeQuery)
+                            (recipe.title.toLowerCase().includes(recipeQuery) ||
+                                recipe.description
+                                    .toLowerCase()
+                                    .includes(recipeQuery) ||
+                                recipe.cuisine.title
+                                    .toLowerCase()
+                                    .includes(recipeQuery)) &&
+                            ((recipe.cuisine.title.toLowerCase() ==
+                                "caribbean" &&
+                                caribbean) ||
+                                (recipe.cuisine.title.toLowerCase() ==
+                                    "greek" &&
+                                    greek) ||
+                                (recipe.cuisine.title.toLowerCase() ==
+                                    "indian" &&
+                                    indian) ||
+                                (recipe.cuisine.title.toLowerCase() ==
+                                    "french" &&
+                                    french) ||
+                                (recipe.cuisine.title.toLowerCase() ==
+                                    "chinese" &&
+                                    chinese)) &&
+                            recipe.caloricity >= calories[0] &&
+                            recipe.caloricity <= calories[1]
                     )
                     .map((recipe) => (
                         <RecipeCard

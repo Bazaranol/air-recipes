@@ -1,21 +1,11 @@
 import axios from "axios"
-import { Dispatch } from "redux"
-import { RecipesAction, RecipeActionTypes } from "../../types/recipesTypes"
+import { createAsyncThunk } from "@reduxjs/toolkit"
 
-export const fetchRecipes = () => {
-    return async (dispatch: Dispatch<RecipesAction>) => {
-        try {
-            dispatch({ type: RecipeActionTypes.FETCH_RECIPES })
-            const response = await axios.get("https://test.kode-t.ru/list.json")
-            dispatch({
-                type: RecipeActionTypes.FETCH_RECIPES_SUCCESS,
-                payload: response.data.recipes,
-            })
-        } catch (error) {
-            dispatch({
-                type: RecipeActionTypes.FETCH_RECIPES_ERROR,
-                payload: "Ошибка при загрузке рецептов",
-            })
-        }
+export const fetchRecipes = createAsyncThunk("recipes", async (_, thunkApi) => {
+    try {
+        const response = await axios.get("https://test.kode-t.ru/list.json")
+        return response.data.recipes
+    } catch (error) {
+        return thunkApi.rejectWithValue("Ошибка при загрузке рецептов!")
     }
-}
+})

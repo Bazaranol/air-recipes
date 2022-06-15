@@ -1,25 +1,26 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useAction } from "../../hooks/useActions";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { fetchRecipe } from "../../store/action-creators/recipe";
 import { CookDescription } from "../atoms/CookDescription/CookDescription";
 import { Ingredients } from "../atoms/Ingredients/Ingredients";
 import { Instructions } from "../atoms/Instructions/Instructions";
 import { ImageSlider } from "../molecules/ImageBlock/ImageSlider";
-
+import "./page.css";
 type recipeParams = {
     id: string;
 };
 
 export const RecipePage: React.FC = () => {
+    const dispatch = useAppDispatch();
     const { id } = useParams<recipeParams>();
     const { recipe, loading, error } = useTypedSelector(
-        (state) => state.recipe
+        (state) => state.recipeReducer
     );
-    const { fetchRecipe } = useAction();
     useEffect(() => {
-        id && fetchRecipe(parseInt(id));
+        id && dispatch(fetchRecipe(parseInt(id)));
     }, []);
     if (loading) {
         return <h1>Загрузка...</h1>;
@@ -29,17 +30,7 @@ export const RecipePage: React.FC = () => {
     }
     return (
         <>
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    pt: "60px",
-                    position: "absolute",
-                    background: "white",
-                    maxWidth: "1200px",
-                }}
-            >
+            <Box className="recipe">
                 <Box
                     sx={{
                         display: "flex",
@@ -49,10 +40,12 @@ export const RecipePage: React.FC = () => {
                 >
                     <Box mb={2}>
                         <Typography
+                            className="recipeTitle"
                             variant="h3"
                             fontWeight={800}
                             mb={2}
                             fontSize="40px"
+                            sx={{ sm: { fontSize: "30px" } }}
                         >
                             {recipe.title}
                         </Typography>
@@ -61,6 +54,7 @@ export const RecipePage: React.FC = () => {
                         </Typography>
                     </Box>
                     <Box
+                        className="cookDesc"
                         mb={3}
                         sx={{
                             display: "flex",

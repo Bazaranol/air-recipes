@@ -13,3 +13,8 @@
     font-size: 12px;
     font-weight: 500;
 }
+@media screen and (max-width: 500px) {
+    .card {
+        margin-left: 8px;
+    }
+}

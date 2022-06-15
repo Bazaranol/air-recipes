@@ -27,23 +27,43 @@ export const ImageSlider: React.FC<IImageSlider> = ({ images }) => {
         slidesToScroll: 1,
         arrows: false,
     };
-    return (
-        <Box>
-            <Box
-                sx={{
-                    padding: "0px",
-                    width: "600px",
-                    height: "600px",
-                }}
-            >
-                <Slider {...settings}>
-                    {images.map((image) => (
-                        <div key={image}>
-                            <img src={image} width={532} height={355} />
-                        </div>
-                    ))}
-                </Slider>
+    if (images.length > 1)
+        return (
+            <Box>
+                <Box
+                    sx={{
+                        padding: "0px",
+                        width: "600px",
+                        height: "600px",
+                    }}
+                >
+                    <Slider {...settings}>
+                        {images.map((image) => (
+                            <div key={image}>
+                                <img src={image} width={532} height={355} />
+                            </div>
+                        ))}
+                    </Slider>
+                </Box>
             </Box>
-        </Box>
-    );
+        );
+    else
+        return (
+            <Box>
+                <Box
+                    sx={{
+                        padding: "0px",
+                        width: "600px",
+                        height: "600px",
+                    }}
+                >
+                    <div>
+                        <img src={images[0]} className="mainImg" />
+                    </div>
+                    <div>
+                        <img src={images[0]} className="imgDot" />
+                    </div>
+                </Box>
+            </Box>
+        );
 };

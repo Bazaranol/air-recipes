@@ -1,9 +1,10 @@
-import {
-    RecipeActionTypes,
-    RecipesAction,
-    RecipeState,
-} from "../../types/recipesTypes"
-const inititalState: RecipeState = {
+import { IRecipe } from "./../../types/recipesTypes"
+import { PayloadAction } from "@reduxjs/toolkit"
+import { fetchRecipe } from "./../action-creators/recipe"
+import { createSlice } from "@reduxjs/toolkit"
+import { RecipeState } from "../../types/recipesTypes"
+
+const initialState: RecipeState = {
     recipe: {
         id: 0,
         title: "",
@@ -21,18 +22,29 @@ const inititalState: RecipeState = {
     error: null,
 }
 
-export const recipeReducer = (
-    state = inititalState,
-    action: RecipesAction
-): RecipeState => {
-    switch (action.type) {
-        case RecipeActionTypes.FETCH_RECIPES:
-            return inititalState
-        case RecipeActionTypes.FETCH_RECIPE_SUCCESS:
-            return { loading: false, error: null, recipe: action.payload }
-        case RecipeActionTypes.FETCH_RECIPES_ERROR:
-            return inititalState
-        default:
-            return state
-    }
-}
+export const recipeSlice = createSlice({
+    name: "recipe",
+    initialState,
+    reducers: {},
+    extraReducers: {
+        [fetchRecipe.fulfilled.type]: (
+            state,
+            action: PayloadAction<IRecipe>
+        ) => {
+            state.loading = false
+            state.error = ""
+            state.recipe = action.payload
+        },
+        [fetchRecipe.pending.type]: (state) => {
+            state.loading = true
+        },
+        [fetchRecipe.rejected.type]: (
+            state,
+            action: PayloadAction<string | null>
+        ) => {
+            state.loading = false
+            state.error = action.payload
+        },
+    },
+})
+export default recipeSlice.reducer
