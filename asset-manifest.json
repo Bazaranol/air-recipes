@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/air-recipes/static/css/main.d6a9575c.css",
-    "main.js": "/air-recipes/static/js/main.d967be59.js",
+    "main.css": "/air-recipes/static/css/main.c4297e1d.css",
+    "main.js": "/air-recipes/static/js/main.b2aab054.js",
     "static/media/header.jpg": "/air-recipes/static/media/header.9672d16eb552bba81bc4.jpg",
     "static/media/roboto-all-500-normal.woff": "/air-recipes/static/media/roboto-all-500-normal.0ab669b7a0d19b178f57.woff",
     "static/media/roboto-all-700-normal.woff": "/air-recipes/static/media/roboto-all-700-normal.a457fde362a540fcadff.woff",
@@ -40,11 +40,11 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "/air-recipes/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "static/media/slick.woff": "/air-recipes/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/air-recipes/index.html",
-    "main.d6a9575c.css.map": "/air-recipes/static/css/main.d6a9575c.css.map",
-    "main.d967be59.js.map": "/air-recipes/static/js/main.d967be59.js.map"
+    "main.c4297e1d.css.map": "/air-recipes/static/css/main.c4297e1d.css.map",
+    "main.b2aab054.js.map": "/air-recipes/static/js/main.b2aab054.js.map"
   },
   "entrypoints": [
-    "static/css/main.d6a9575c.css",
-    "static/js/main.d967be59.js"
+    "static/css/main.c4297e1d.css",
+    "static/js/main.b2aab054.js"
   ]
 }
